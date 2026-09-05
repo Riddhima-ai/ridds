@@ -1,26 +1,5 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { ChevronDown, UserRound } from "lucide-react";
 import "./DashboardAppBar.css";
-
-export default function DashboardAppBar() {
-  return (
-    <header className="common-appbar">
-      <div className="common-appbar-logo" aria-label="Dronaid">
-        <span className="common-logo-drone">✦</span>
-        <span>DR<span>O</span>NAID</span>
-      </div>
-
-      <nav className="common-appbar-nav" aria-label="Primary navigation">
-        <NavLink to="/general" className={({ isActive }) => `common-appbar-link${isActive ? " active" : ""}`}>GENERAL</NavLink>
-        <NavLink to="/competition" className={({ isActive }) => `common-appbar-link${isActive ? " active" : ""}`}>COMPETITION</NavLink>
-        <NavLink to="/team" className={({ isActive }) => `common-appbar-link${isActive ? " active" : ""}`}>TEAM</NavLink>
-      </nav>
-
-      <div className="common-appbar-actions">
-        <button type="button" className="common-theme-button" aria-label="Toggle light mode">☼</button>
-        <span className="common-appbar-divider" />
-        <button type="button" className="common-profile-button" aria-label="Open profile">◯</button>
-        <button type="button" className="common-profile-chevron" aria-label="Open profile menu">⌄</button>
-      </div>
-    </header>
-  );
-}
+export default function DashboardAppBar({profileOpen,setProfileOpen}){const [localOpen,setLocalOpen]=useState(false);const open=profileOpen??localOpen;const toggle=()=>setProfileOpen?setProfileOpen(!open):setLocalOpen(!open);return <header className="reference-appbar"><NavLink to="/dashboard" className="reference-logo"><svg viewBox="0 0 130 35"><path d="M13 8h80M30 8 45 25M70 8 56 25M18 8l10 10m55-10-10 10"/><circle cx="13" cy="8" r="3"/><circle cx="93" cy="8" r="3"/></svg><span>DR<span>O</span>NAID</span></NavLink><nav><NavLink to="/dashboard" end>General</NavLink><NavLink to="/competition">Competition</NavLink></nav><div className="profile-menu"><button className="profile-trigger" onClick={toggle} aria-label="Open profile" aria-expanded={open}><UserRound/><ChevronDown/></button>{open&&<div className="profile-popover"><strong>DRONAID operator</strong><span>Mission control online</span></div>}</div></header>}
